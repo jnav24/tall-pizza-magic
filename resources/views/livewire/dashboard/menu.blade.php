@@ -25,7 +25,7 @@
         <x-dashboard.menu-nav />
     </section>
 
-    <section class="flex-1 pl-10 py-4 pr-4 space-y-8 container">
+    <section class="flex-1 pl-10 py-4 pr-4 space-y-8">
         <div class="flex justify-end">
             <livewire:dashboard.nav />
         </div>
