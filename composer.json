@@ -8,9 +8,11 @@
         "php": "^8.2",
         "laravel-frontend-presets/tall": "^8.0",
         "laravel/framework": "^11.0",
+        "laravel/reverb": "@beta",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.6",
+        "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-permission": "^6.7"
     },
     "require-dev": {

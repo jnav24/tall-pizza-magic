@@ -14,9 +14,15 @@ devDependencies:
   autoprefixer:
     specifier: ^10.4
     version: 10.4.19(postcss@8.4.38)
+  laravel-echo:
+    specifier: ^1.16.1
+    version: 1.16.1
   laravel-vite-plugin:
     specifier: ^1.0
     version: 1.0.4(vite@5.2.11)
+  pusher-js:
+    specifier: 8.4.0-rc2
+    version: 8.4.0-rc2
   resolve-url-loader:
     specifier: ^3.1
     version: 3.1.5
@@ -1278,6 +1284,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /laravel-echo@1.16.1:
+    resolution: {integrity: sha512-++Ylb6M3ariC9Rk5WE5gZjj6wcEV5kvLF8b+geJ5/rRIfdoOA+eG6b9qJPrarMD9rY28Apx+l3eelIrCc2skVg==}
+    engines: {node: '>=10'}
+    dev: true
+
   /laravel-vite-plugin@1.0.4(vite@5.2.11):
     resolution: {integrity: sha512-dEj8Q/Fsn0kKbOQ55bl/NmyJL+dD6OxnVaM/nNByw5XV4b00ky6FzXKVuHLDr4BvSJKH1y6oaOcEG5wKpCZ5+A==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -1566,6 +1577,12 @@ packages:
   /punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
+    dev: true
+
+  /pusher-js@8.4.0-rc2:
+    resolution: {integrity: sha512-d87GjOEEl9QgO5BWmViSqW0LOzPvybvX6WA9zLUstNdB57jVJuR27zHkRnrav2a3+zAMlHbP2Og8wug+rG8T+g==}
+    dependencies:
+      tweetnacl: 1.0.3
     dev: true
 
   /queue-microtask@1.2.3:
@@ -1967,6 +1984,10 @@ packages:
 
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+    dev: true
+
+  /tweetnacl@1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
     dev: true
 
   /type@2.7.2:
