@@ -2,13 +2,19 @@
 
 namespace App\Livewire\Auth;
 
-use App\Providers\RouteServiceProvider;
+use App\Enums\RoleEnum;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\Features\SupportRedirects\Redirector;
 
+#[Layout('layouts.auth')]
 class Register extends Component
 {
     /** @var string */
@@ -23,7 +29,7 @@ class Register extends Component
     /** @var string */
     public $passwordConfirmation = '';
 
-    public function register()
+    public function register(): \Illuminate\Http\RedirectResponse|bool|Redirector
     {
         $this->validate([
             'name' => ['required'],
@@ -35,17 +41,22 @@ class Register extends Component
             'email' => $this->email,
             'name' => $this->name,
             'password' => Hash::make($this->password),
+            // @note email_verified_at here is only temporary
+            // @todo setup verify email logic
+            'email_verified_at' => now(),
         ]);
+
+        $user->assignRole(RoleEnum::USER->value);
 
         event(new Registered($user));
 
         Auth::login($user, true);
 
-        return redirect()->intended(route('home'));
+        return redirect()->intended(route('dashboard.menu'));
     }
 
-    public function render()
+    public function render(): View|Application|Factory
     {
-        return view('livewire.auth.register')->extends('layouts.auth');
+        return view('livewire.auth.register');
     }
 }
