@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PermissionEnum;
+use App\Enums\RoleEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -14,11 +16,11 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminRole = Role::create(['name' => 'admin']);
-        $updateOrder = Permission::create(['name' => 'update_order']);
-        $userRole = Role::create(['name' => 'user']);
-        $viewOrder = Permission::create(['name' => 'view_order']);
-        $createOrder = Permission::create(['name' => 'create_order']);
+        $adminRole = Role::create(['name' => RoleEnum::ADMIN]);
+        $updateOrder = Permission::create(['name' => PermissionEnum::UPDATE_ORDER]);
+        $userRole = Role::create(['name' => RoleEnum::USER]);
+        $viewOrder = Permission::create(['name' => PermissionEnum::VIEW_ORDER]);
+        $createOrder = Permission::create(['name' => PermissionEnum::CREATE_ORDER]);
 
         $adminRole->givePermissionTo($updateOrder);
         $userRole->givePermissionTo([$viewOrder, $createOrder]);
