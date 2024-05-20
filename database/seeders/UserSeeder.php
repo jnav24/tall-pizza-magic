@@ -15,11 +15,18 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::factory()->create([
+        $admin = User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@pizzamagic.com',
         ]);
 
-        $user->assignRole(RoleEnum::ADMIN->value);
+        $admin->assignRole(RoleEnum::ADMIN->value);
+
+        $user = User::factory()->create([
+            'name' => 'Customer One',
+            'email' => 'one@customer.com',
+        ]);
+
+        $user->assignRole(RoleEnum::USER->value);
     }
 }
