@@ -44,8 +44,9 @@ class Orders extends Component
     #[On('update-status')]
     public function updateOrderStatus(Order $order, string $status)
     {
-         $this->authorize('update', $order);
+        $this->authorize('update', $order);
 
+        $orderStatus = OrderStatus::find($status);
         $order->order_status_id = (int) $status;
         $order->save();
 
@@ -53,12 +54,9 @@ class Orders extends Component
             ->with(['orderDetails', 'status'])
             ->get();
 
-        OrderStatusUpdate::dispatch($order, OrderStatusEnum::PREPARING);
+        OrderStatusUpdate::dispatch($order, $orderStatus);
 
-//        $this->refresh();
-//        $this->selectedStatus = (int) $status;
-//        $this->dispatch('created');
-//        return redirect()->route('admin.orders');
+        return redirect()->route('admin.orders');
     }
 
     public function render(): View|Application|Factory

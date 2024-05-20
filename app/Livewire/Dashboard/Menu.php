@@ -56,7 +56,7 @@ class Menu extends Component
                 );
         });
 
-        OrderStatusUpdate::dispatch($order, OrderStatusEnum::PENDING);
+        OrderStatusUpdate::dispatch($order, $status);
         return redirect()->route('dashboard.order-confirmation', ['uuid' => $order->uuid]);
     }
 
