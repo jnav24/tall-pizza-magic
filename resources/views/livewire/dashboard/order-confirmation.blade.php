@@ -28,9 +28,9 @@
                         <div class="flex items-center justify-between">
                             <div class="relative z-10 bg-success rounded-full size-6">
                             </div>
-                            <div class="relative z-10 bg-success rounded-full size-6">
+                            <div class="relative z-10 rounded-full size-6" x-bind:class="{'bg-success': progressWidth >= 50, 'bg-gray-300': progressWidth < 50}">
                             </div>
-                            <div class="relative z-10 bg-gray-300 rounded-full size-6">
+                            <div class="relative z-10 rounded-full size-6" x-bind:class="{'bg-success': progressWidth >= 100, 'bg-gray-300': progressWidth < 100}">
                             </div>
                         </div>
 
@@ -41,8 +41,8 @@
                     </div>
 
                     <div>
-                        <h2 class="text-xl text-gray-600">Working on Pizza</h2>
-                        <p class="text-gray-500">We are prepping your pizza now</p>
+                        <h2 class="text-xl text-gray-600" x-text="statusTitle"></h2>
+                        <p class="text-gray-500" x-text="statusDescription"></p>
                     </div>
                 </div>
             </div>
@@ -76,11 +76,11 @@
             progressWidth: 0,
 
             init() {
-                this.status = @js($order->order_status_id);
+                this.statusTitle = '';
+                this.statusDescription = '';
+                this.status = @js($order->status);
                 this.statuses = @js($statuses);
                 this.setProgress();
-
-                console.log('orders.{{ $order->uuid }}');
 
                 Echo.private('orders.{{ $order->uuid }}')
                     .listen('OrderStatusUpdate', (e) => {
@@ -91,18 +91,21 @@
             },
 
             setProgress() {
-                const s = this.statuses.find((stat) => stat.id === this.status);
-                    console.log('-------s', s);
-
-                if (s) {
-                    switch (s.name) {
+                if (this.status) {
+                    switch (this.status.name) {
                         case 'preparing':
+                            this.statusDescription = 'Prepping is done and food is being cooked.';
+                            this.statusTitle = 'Placed in Oven';
                             this.progressWidth = 50;
                             break;
                         case 'ready':
+                            this.statusDescription = 'Food is packed and ready to go!';
+                            this.statusTitle = 'Ready for delivery or pickup';
                             this.progressWidth = 100;
                             break;
                         default:
+                            this.statusDescription = 'We received your order and prepping it with our fresh ingredients.';
+                            this.statusTitle = 'Working on Pizza';
                             this.progressWidth = 0;
                             break;
                     }
