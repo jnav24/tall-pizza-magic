@@ -2,9 +2,17 @@
 
 namespace App\Livewire\Auth;
 
+use App\Enums\RoleEnum;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Features\SupportRedirects\Redirector;
 
+#[Layout('layouts.auth')]
 class Login extends Component
 {
     /** @var string */
@@ -21,21 +29,25 @@ class Login extends Component
         'password' => ['required'],
     ];
 
-    public function authenticate()
+    public function authenticate(): \Illuminate\Http\RedirectResponse|bool|Redirector
     {
         $this->validate();
 
         if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             $this->addError('email', trans('auth.failed'));
 
-            return;
+            return false;
         }
 
-        return redirect()->intended(route('home'));
+        if (Auth::user()->getRoleNames()->contains(RoleEnum::ADMIN->value)) {
+            return redirect()->intended(route('admin.orders'));
+        }
+
+        return redirect()->intended(route('dashboard.menu'));
     }
 
-    public function render()
+    public function render(): View|Application|Factory
     {
-        return view('livewire.auth.login')->extends('layouts.auth');
+        return view('livewire.auth.login');
     }
 }
