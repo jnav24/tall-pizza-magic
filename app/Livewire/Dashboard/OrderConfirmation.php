@@ -37,11 +37,6 @@ class OrderConfirmation extends Component
         $this->authorize('view', $this->order);
     }
 
-    public function notifyNewOrder()
-    {
-        dump('notifyNewOrder');
-    }
-
     public function render(): View|Application|Factory
     {
         return view('livewire.dashboard.order-confirmation');
