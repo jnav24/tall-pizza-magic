@@ -10,22 +10,16 @@
         init() {
             this.sidebarItems = @js($statuses);
             this.selectedSidebar = this.sidebarItems?.[0]?.['value'] ?? '';
-            console.log('grrr', this.selectedSidebar);
             this.updateOrders(this.selectedSidebar);
 
             $watch('selectedSidebar', (v) => {
-                console.log('wtf');
                 this.updateOrders(v);
             });
         },
 
         updateOrders(v) {
-            console.log('selected', v);
             this.filteredOrders = this.orders.filter((order) => +order.order_status_id === +v);
             this.currentStatus = this.sidebarItems.find((s) => s.value === v)?.label;
-            console.log('orders', this.orders);
-            console.log('filtered', this.filteredOrders);
-
         },
 
         updateStatus(order) {
@@ -40,7 +34,7 @@
                 }
                 return o;
             });
-            console.log('hmmm');
+
             this.updateOrders(this.selectedSidebar);
         },
     }"
